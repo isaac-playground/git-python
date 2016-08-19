@@ -8,7 +8,7 @@ DATA_DIR = os.path.join(REPO_ROOT, 'data')
 CURRENT_EXECUTION_VERSION = 7
 NEW_AND_MODIFIED = '.'
 REMOVED = '-A'
-COMMIT_MSG='-m "Automated commit {index}. Trying push to repo"'.format(index=CURRENT_EXECUTION_VERSION)
+COMMIT_MSG='-m "Automated commit {index}. Modifying files."'.format(index=CURRENT_EXECUTION_VERSION)
 
 
 print("Repo root: " + REPO_ROOT)
@@ -25,8 +25,9 @@ with open(new_file, mode='w') as fout:
     contents = "Created file {number}".format(number=CURRENT_EXECUTION_VERSION)
     fout.write(contents)
 
-with open(modifiable_file, mode='w+') as fout:
+with open(modifiable_file, mode='a') as fout:
     contents = "Modified {number} times.\n".format(number=CURRENT_EXECUTION_VERSION)
+    fout.write(contents)
 
 if os.path.exists(old_file):
     print("Removing file: " + old_file)
@@ -40,5 +41,6 @@ print('Removing deleted from tree....')
 git_driver.add(REMOVED)
 print('Committing changes....')
 git_driver.commit(COMMIT_MSG)
+print('Pushing changes....')
 git_driver.push()
 
