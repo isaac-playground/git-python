@@ -5,7 +5,7 @@ import git
 
 REPO_ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
-CURRENT_EXECUTION_VERSION = 3
+CURRENT_EXECUTION_VERSION = 4
 
 
 print("Repo root: " + REPO_ROOT)
@@ -27,5 +27,9 @@ if os.path.exists(old_file):
 
 
 print("Repo is dirty: " + repr(repo.is_dirty()))
-print(git_driver.add('.'))
-git_driver.commit('-a -m "Execution {index}"'.format(index=CURRENT_EXECUTION_VERSION))
+print('Adding new and modified....')
+git_driver.add('.')
+print('Removing deleted from tree....')
+git_driver.add('-A')
+print('Committing changes....')
+git_driver.commit('-m "Execution {index}"'.format(index=CURRENT_EXECUTION_VERSION))
