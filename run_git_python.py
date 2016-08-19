@@ -5,7 +5,7 @@ import git
 
 REPO_ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
-CURRENT_EXECUTION_VERSION = 12
+CURRENT_EXECUTION_VERSION = 14
 NEW_AND_MODIFIED = '.'
 REMOVED = '-A'
 COMMIT_MSG='-m "Automated commit {index}. Printing push output."'.format(index=CURRENT_EXECUTION_VERSION)
@@ -49,9 +49,9 @@ print(git_driver.commit(COMMIT_MSG))
 # Let's tag this version if the tag doesn't exist.
 if VERSION_TAG not in repo.tags:
     print('Tagging repository with: {tag}....'.format(tag=VERSION_TAG))
-    repo.create_tag(VERSION_TAG)
+    repo.create_tag(VERSION_TAG, message='Annotated tag {version}'.format(version=VERSION_TAG))
 
 
 print('Pushing changes....')
-git_driver.push()
+git_driver.push('--follow-tags')
 
