@@ -5,7 +5,7 @@ import git
 
 REPO_ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
-CURRENT_EXECUTION_VERSION = 10
+CURRENT_EXECUTION_VERSION = 11
 NEW_AND_MODIFIED = '.'
 REMOVED = '-A'
 COMMIT_MSG='-m "Automated commit {index}. Printing push output."'.format(index=CURRENT_EXECUTION_VERSION)
@@ -36,11 +36,11 @@ if os.path.exists(old_file):
 
 print("Repo is dirty: " + repr(repo.is_dirty()))
 print('Adding new and modified....')
-print(git_driver.add(NEW_AND_MODIFIED))
+git_driver.add(NEW_AND_MODIFIED)
 print('Removing deleted from tree....')
-print(git_driver.add(REMOVED))
+git_driver.add(REMOVED)
 print('Committing changes....')
 print(git_driver.commit(COMMIT_MSG))
 print('Pushing changes....')
-print(git_driver.push())
+git_driver.push()
 
