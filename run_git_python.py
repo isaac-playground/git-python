@@ -36,5 +36,5 @@ print('Removing deleted from tree....')
 git_driver.add(REMOVED)
 print('Committing changes....')
 git_driver.commit(COMMIT_MSG)
-git_driver.push('')
+git_driver.push()
 
