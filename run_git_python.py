@@ -5,7 +5,7 @@ import git
 
 REPO_ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
-CURRENT_EXECUTION_VERSION = 6
+CURRENT_EXECUTION_VERSION = 7
 NEW_AND_MODIFIED = '.'
 REMOVED = '-A'
 COMMIT_MSG='-m "Automated commit {index}. Trying push to repo"'.format(index=CURRENT_EXECUTION_VERSION)
@@ -20,9 +20,13 @@ git_driver = repo.git
 # Create a new file and commit it to the repo.
 new_file = os.path.join(DATA_DIR, "created {number}.txt".format(number=CURRENT_EXECUTION_VERSION))
 old_file = os.path.join(DATA_DIR, "created {number}.txt".format(number=CURRENT_EXECUTION_VERSION-1))
+modifiable_file = os.path.join(DATA_DIR, "modifiable.txt".format(number=CURRENT_EXECUTION_VERSION-1))
 with open(new_file, mode='w') as fout:
     contents = "Created file {number}".format(number=CURRENT_EXECUTION_VERSION)
     fout.write(contents)
+
+with open(modifiable_file, mode='w+') as fout:
+    contents = "Modified {number} times.\n".format(number=CURRENT_EXECUTION_VERSION)
 
 if os.path.exists(old_file):
     print("Removing file: " + old_file)
