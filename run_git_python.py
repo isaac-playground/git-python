@@ -46,12 +46,12 @@ print(git_driver.status())
 print('Committing changes....')
 print(git_driver.commit(COMMIT_MSG))
 
-# Let's tag this version if the tag doesn't exist.
+# Let's tag this version if the tag doesn't exist and push it preventing override.
 if VERSION_TAG not in repo.tags:
     print('Tagging repository with: {tag}....'.format(tag=VERSION_TAG))
     repo.create_tag(VERSION_TAG, message='Annotated tag {version}'.format(version=VERSION_TAG))
+    print('Pushing changes....')
+    git_driver.push('--follow-tags')
 
 
-print('Pushing changes....')
-git_driver.push('--follow-tags')
 
