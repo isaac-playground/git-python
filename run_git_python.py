@@ -9,6 +9,7 @@ CURRENT_EXECUTION_VERSION = 12
 NEW_AND_MODIFIED = '.'
 REMOVED = '-A'
 COMMIT_MSG='-m "Automated commit {index}. Printing push output."'.format(index=CURRENT_EXECUTION_VERSION)
+VERSION_TAG = 'v1.0.{build}'.format(build=CURRENT_EXECUTION_VERSION)
 
 
 print("Repo root: " + REPO_ROOT)
@@ -17,7 +18,7 @@ print("Data directory: " + DATA_DIR)
 repo = git.Repo(REPO_ROOT)
 git_driver = repo.git
 
-# Create a new file and commit it to the repo.
+# Making some changes that we can commit.
 new_file = os.path.join(DATA_DIR, "created {number}.txt".format(number=CURRENT_EXECUTION_VERSION))
 old_file = os.path.join(DATA_DIR, "created {number}.txt".format(number=CURRENT_EXECUTION_VERSION-1))
 modifiable_file = os.path.join(DATA_DIR, "modifiable.txt".format(number=CURRENT_EXECUTION_VERSION-1))
@@ -35,6 +36,8 @@ if os.path.exists(old_file):
 
 
 print("Repo is dirty: " + repr(repo.is_dirty()))
+
+# Adding new and modified, and deleting removed files from the repo.
 print('Adding new and modified....')
 git_driver.add(NEW_AND_MODIFIED)
 print('Removing deleted from tree....')
@@ -42,6 +45,13 @@ git_driver.add(REMOVED)
 print(git_driver.status())
 print('Committing changes....')
 print(git_driver.commit(COMMIT_MSG))
+
+# Let's tag this version if the tag doesn't exist.
+if VERSION_TAG not in repo.tags:
+    print('Tagging repository with: {tag}....'.format(tag=VERSION_TAG))
+    repo.create_tag(VERSION_TAG)
+
+
 print('Pushing changes....')
 git_driver.push()
 
