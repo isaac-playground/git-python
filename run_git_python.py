@@ -36,11 +36,11 @@ if os.path.exists(old_file):
 
 print("Repo is dirty: " + repr(repo.is_dirty()))
 print('Adding new and modified....')
-git_driver.add(NEW_AND_MODIFIED)
+print(git_driver.add(NEW_AND_MODIFIED))
 print('Removing deleted from tree....')
-git_driver.add(REMOVED)
+print(git_driver.add(REMOVED))
 print('Committing changes....')
-git_driver.commit(COMMIT_MSG)
+print(git_driver.commit(COMMIT_MSG))
 print('Pushing changes....')
 print(git_driver.push())
 
