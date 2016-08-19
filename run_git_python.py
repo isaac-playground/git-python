@@ -5,7 +5,7 @@ import git
 
 REPO_ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
-CURRENT_EXECUTION_VERSION = 11
+CURRENT_EXECUTION_VERSION = 12
 NEW_AND_MODIFIED = '.'
 REMOVED = '-A'
 COMMIT_MSG='-m "Automated commit {index}. Printing push output."'.format(index=CURRENT_EXECUTION_VERSION)
@@ -39,6 +39,7 @@ print('Adding new and modified....')
 git_driver.add(NEW_AND_MODIFIED)
 print('Removing deleted from tree....')
 git_driver.add(REMOVED)
+print(git_driver.status())
 print('Committing changes....')
 print(git_driver.commit(COMMIT_MSG))
 print('Pushing changes....')
